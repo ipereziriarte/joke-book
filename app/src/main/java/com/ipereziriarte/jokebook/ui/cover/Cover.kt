@@ -11,6 +11,7 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -20,7 +21,7 @@ internal fun Cover(navigateToJokeList: () -> Unit) {
             Text(text = "Joke Book")
             Spacer(modifier = Modifier.size(32.dp))
             Button(
-                onClick = { navigateToJokeList() }, modifier = Modifier.padding(8.dp),
+                onClick = { navigateToJokeList() }, modifier = Modifier.padding(8.dp).testTag("CoverMainBtn"),
                 shape = RoundedCornerShape(20.dp)
             ) {
                 Text(text = "Have fun!")

@@ -23,6 +23,8 @@ This apps is built using jetpack compose. In order to run it you will need to do
 
 It will also require to have the latest gradle version (>7.0 and auto installed with the gradle wrapper)
 
+## Implementation
+
 ### Code Style
 Code style is managed by [ktlint](https://github.com/pinterest/ktlint) through the [spotless gradle plugin](https://github.com/diffplug/spotless/tree/main/plugin-gradle)
 
@@ -37,3 +39,15 @@ The experimental feature is enabled at `settings.gradle` file and the dependenci
 
 ### Navigation
 The navigation is provided by the [Android Jetpack navigation component](https://developer.android.com/guide/navigation).
+
+### Testing
+
+#### UI tests
+UI tests are provided by the compose ui testing framework and must be run in a device or emulator in the debug variant.
+The UI tests are located under `androidTest` folder
+
+Check the [compose ui testing docs](https://developer.android.com/jetpack/compose/testing) for further info and take a
+look to the `AndroidManifest.xml` file under `app/src/debug` that includes a little hack to let the compose element be
+initialized without calling the parent activity.
+
+
