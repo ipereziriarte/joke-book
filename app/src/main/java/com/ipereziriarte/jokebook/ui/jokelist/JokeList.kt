@@ -19,8 +19,9 @@ internal fun JokeList(navigateToPunchLine: () -> Unit) {
         Column {
             Text(text = "This is the joke list")
             Spacer(modifier = Modifier.size(32.dp))
-            Button(onClick = { navigateToPunchLine() }, modifier = Modifier.padding(8.dp),
-                   shape = RoundedCornerShape(20.dp)
+            Button(
+                onClick = { navigateToPunchLine() }, modifier = Modifier.padding(8.dp),
+                shape = RoundedCornerShape(20.dp)
             ) {
                 Text(text = "See the punchline")
             }

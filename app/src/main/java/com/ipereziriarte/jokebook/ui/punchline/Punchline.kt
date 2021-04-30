@@ -19,8 +19,9 @@ internal fun Punchline(navigateBack: () -> Boolean) {
         Column {
             Text(text = "This is the punch line")
             Spacer(modifier = Modifier.size(32.dp))
-            Button(onClick = { navigateBack() }, modifier = Modifier.padding(8.dp),
-                   shape = RoundedCornerShape(20.dp)
+            Button(
+                onClick = { navigateBack() }, modifier = Modifier.padding(8.dp),
+                shape = RoundedCornerShape(20.dp)
             ) {
                 Text(text = "Back")
             }

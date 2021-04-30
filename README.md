@@ -1,5 +1,7 @@
 # JokeBook
 
+![Screenshot](artwork/ic_launcher-web.png)
+
 ## Requirements
 This app creates a Joke Book based on the official joke api.
 
