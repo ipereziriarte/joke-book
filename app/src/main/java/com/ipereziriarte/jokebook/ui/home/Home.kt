@@ -1,31 +1,29 @@
 package com.ipereziriarte.jokebook.ui.home
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.navigate
+import androidx.navigation.compose.rememberNavController
+import com.ipereziriarte.jokebook.ui.cover.Cover
+import com.ipereziriarte.jokebook.ui.jokelist.JokeList
+import com.ipereziriarte.jokebook.ui.navigation.Screen
+import com.ipereziriarte.jokebook.ui.punchline.Punchline
 import com.ipereziriarte.jokebook.ui.theme.JokeBookTheme
 
 @Composable
 internal fun Home() {
-    Surface(color = MaterialTheme.colors.surface) {
-        Column {
-            Text(text = "Hello Android!")
-            Spacer(modifier = Modifier.size(32.dp))
-            Button(onClick = { /*TODO*/ }, modifier = Modifier.padding(8.dp),
-                   shape = RoundedCornerShape(20.dp)
-            ) {
-                Text(text = "Have fun!")
-            }
+    val navController = rememberNavController()
+    NavHost(navController = navController, startDestination = Screen.Home.route) {
+        composable(Screen.Home.route) {
+            Cover { navController.navigate(Screen.JokeList.route) }
+        }
+        composable(Screen.JokeList.route) {
+            JokeList { navController.navigate(Screen.PunchLine.route) }
+        }
+        composable(Screen.PunchLine.route) {
+            Punchline { navController.popBackStack() }
         }
     }
 }

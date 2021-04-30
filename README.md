@@ -29,8 +29,9 @@ In order to run the checks type in the terminal `gradlew build` or `gradlew.bat 
 In a bigger project with several people working on it I would add this checks to a git pre-commit hook.
 If a CI is available, I would add the checks using [fastlane](https://fastlane.tools/).
 
-
 ### Dependency management
 This uses Gradle dependency catalog as explained [here](https://docs.gradle.org/current/userguide/platforms.html)
 The experimental feature is enabled at `settings.gradle` file and the dependencies are declared at `gradle/libs.versions.toml`
 
+### Navigation
+The navigation is provided by the [Android Jetpack navigation component](https://developer.android.com/guide/navigation).

@@ -11,6 +11,8 @@ androidx-activity-compose = "androidx.activity:activity-compose:1.3.0-alpha07"
 androidx-core = "androidx.core:core-ktx:1.5.0-beta03"
 androidx-lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidxlifecycle" }
 
+androidx-navigation-compose = "androidx.navigation:navigation-compose:1.0.0-alpha10"
+
 androidx-test-junit = "androidx.test.ext:junit-ktx:1.1.2"
 androidx-test-espresso = "androidx.test.espresso:espresso-core:3.3.0"
 
