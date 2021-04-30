@@ -13,6 +13,7 @@ buildscript {
   dependencies {
     classpath libs.android.gradlePlugin
     classpath libs.kotlin.gradlePlugin
+    classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.32'
 
     // NOTE: Do not place your application dependencies here; they belong
     // in the individual module build.gradle files
@@ -38,5 +39,19 @@ subprojects {
       ktlint(libs.versions.ktlint.get())
     }
   }
+
+  tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+    kotlinOptions {
+      // Treat all Kotlin warnings as errors
+      allWarningsAsErrors = true
+
+      // Enable experimental coroutines APIs, including Flow
+      freeCompilerArgs += "-Xopt-in=kotlin.Experimental"
+
+      // Set JVM target to 1.8
+      jvmTarget = "1.8"
+    }
+  }
+
 }
 

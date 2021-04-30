@@ -17,7 +17,6 @@ class CoverTest {
         composeTestRule.setContent {
             JokeBookTheme {
                 Cover {
-
                 }
             }
         }
