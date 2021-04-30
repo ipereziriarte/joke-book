@@ -1,4 +1,4 @@
-package com.ipereziriarte.jokebook
+package com.ipereziriarte.jokebook.ui.home
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
