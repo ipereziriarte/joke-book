@@ -1,17 +1,22 @@
 package com.ipereziriarte.jokebook.ui.jokelist
 
 import androidx.lifecycle.ViewModel
-import com.ipereziriarte.data.Joke
+import androidx.lifecycle.liveData
 import com.ipereziriarte.data.JokeDataRepository
+import com.ipereziriarte.data.datasources.remote.jokes.CallResult
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
 
 @HiltViewModel
 class JokeListKnockViewModel @Inject constructor(private val jokeDataRepository: JokeDataRepository) : ViewModel() {
 
-    var knockJokes: List<Joke> = emptyList()
-
-    init {
-        knockJokes = jokeDataRepository.getKnockJokes()
+    val fetchJokes = liveData(Dispatchers.IO) {
+        emit(CallResult.Loading)
+        try {
+            emit(jokeDataRepository.fetchKnockJokes())
+        } catch (e: Exception) {
+            emit(CallResult.Failure(e))
+        }
     }
 }

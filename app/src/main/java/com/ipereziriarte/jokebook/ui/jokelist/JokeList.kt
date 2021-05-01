@@ -65,8 +65,8 @@ internal fun JokeList(actions: NavigationActions) {
             ) { page ->
                 when (page) {
                     JokeTab.General.ordinal -> GeneralBody(actions)
-                    JokeTab.Knock.ordinal -> KnockBody()
-                    JokeTab.Programming.ordinal -> ProgrammingBody()
+                    JokeTab.Knock.ordinal -> KnockBody(actions)
+                    JokeTab.Programming.ordinal -> ProgrammingBody(actions)
                 }
             }
 
@@ -99,7 +99,37 @@ fun GeneralBody(generalViewModel: JokeListGeneralViewModel, actions: NavigationA
     val result: CallResult by generalViewModel.fetchJokes.observeAsState(CallResult.Success(emptyList()))
     when (result) {
         is CallResult.Loading -> ShowLoading()
-        is CallResult.Success -> GeneralBody(jokes = (result as CallResult.Success).data, actions = actions)
+        is CallResult.Success -> ShowBody(jokes = (result as CallResult.Success).data, actions = actions)
+        is CallResult.Failure -> ShowError()
+    }
+}
+
+@Composable
+fun KnockBody(actions: NavigationActions) {
+    KnockBody(knockViewModel = hiltNavGraphViewModel(), actions = actions)
+}
+
+@Composable
+fun KnockBody(knockViewModel: JokeListKnockViewModel, actions: NavigationActions) {
+    val result: CallResult by knockViewModel.fetchJokes.observeAsState(CallResult.Success(emptyList()))
+    when (result) {
+        is CallResult.Loading -> ShowLoading()
+        is CallResult.Success -> ShowBody(jokes = (result as CallResult.Success).data, actions = actions)
+        is CallResult.Failure -> ShowError()
+    }
+}
+
+@Composable
+fun ProgrammingBody(actions: NavigationActions) {
+    ProgrammingBody(programmingViewModel = hiltNavGraphViewModel(), actions = actions)
+}
+
+@Composable
+fun ProgrammingBody(programmingViewModel: JokeListProgrammingViewModel, actions: NavigationActions) {
+    val result: CallResult by programmingViewModel.fetchJokes.observeAsState(CallResult.Success(emptyList()))
+    when (result) {
+        is CallResult.Loading -> ShowLoading()
+        is CallResult.Success -> ShowBody(jokes = (result as CallResult.Success).data, actions = actions)
         is CallResult.Failure -> ShowError()
     }
 }
@@ -119,7 +149,7 @@ fun ShowError() {
 }
 
 @Composable
-fun GeneralBody(jokes: List<Joke>, actions: NavigationActions) {
+fun ShowBody(jokes: List<Joke>, actions: NavigationActions) {
     Box(Modifier.fillMaxSize()) {
         Column() {
             if (jokes.isEmpty()) {
@@ -129,44 +159,6 @@ fun GeneralBody(jokes: List<Joke>, actions: NavigationActions) {
                     Row(Modifier.clickable(onClick = { actions.punchLineScreen(joke.punchLine) })) {
                         Text(text = joke.setup)
                     }
-                }
-            }
-        }
-    }
-}
-
-@Composable
-fun KnockBody() {
-    KnockBody(knockViewModel = hiltNavGraphViewModel())
-}
-
-@Composable
-fun KnockBody(knockViewModel: JokeListKnockViewModel) {
-    Box(Modifier.fillMaxSize()) {
-        Column() {
-            val jokes = knockViewModel.knockJokes
-            jokes.forEach { joke ->
-                Row() {
-                    Text(text = joke.setup)
-                }
-            }
-        }
-    }
-}
-
-@Composable
-fun ProgrammingBody() {
-    ProgrammingBody(programmingViewModel = hiltNavGraphViewModel())
-}
-
-@Composable
-fun ProgrammingBody(programmingViewModel: JokeListProgrammingViewModel) {
-    Box(Modifier.fillMaxSize()) {
-        Column() {
-            val jokes = programmingViewModel.programmingJokes
-            jokes.forEach { joke ->
-                Row() {
-                    Text(text = joke.setup)
                 }
             }
         }
