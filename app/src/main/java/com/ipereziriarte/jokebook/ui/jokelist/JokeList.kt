@@ -1,16 +1,12 @@
 package com.ipereziriarte.jokebook.ui.jokelist
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Tab
@@ -20,14 +16,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltNavGraphViewModel
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
 import com.ipereziriarte.data.Joke
 import com.ipereziriarte.data.datasources.remote.jokes.CallResult
+import com.ipereziriarte.jokebook.ui.components.JokeListItem
+import com.ipereziriarte.jokebook.ui.components.LoadingCircleAnimation
 import com.ipereziriarte.jokebook.ui.home.NavigationActions
 import kotlinx.coroutines.launch
 
@@ -39,9 +37,6 @@ internal fun JokeList(actions: NavigationActions) {
     val coroutineScope = rememberCoroutineScope()
     Surface(color = MaterialTheme.colors.surface) {
         Column {
-            Text(text = "This is the joke list")
-            Spacer(modifier = Modifier.size(32.dp))
-
             TabRow(selectedTabIndex = pagerState.currentPage) {
 
                 allTabs.forEachIndexed { index, tab ->
@@ -68,14 +63,6 @@ internal fun JokeList(actions: NavigationActions) {
                     JokeTab.Knock.ordinal -> KnockBody(actions)
                     JokeTab.Programming.ordinal -> ProgrammingBody(actions)
                 }
-            }
-
-            Spacer(modifier = Modifier.size(32.dp))
-            Button(
-                onClick = { actions.punchLineScreen("See the punchline") }, modifier = Modifier.padding(8.dp),
-                shape = RoundedCornerShape(20.dp)
-            ) {
-                Text(text = "See the punchline")
             }
         }
     }
@@ -136,8 +123,11 @@ fun ProgrammingBody(programmingViewModel: JokeListProgrammingViewModel, actions:
 
 @Composable
 fun ShowLoading() {
-    Box(Modifier.fillMaxSize()) {
-        Text("Loading")
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        LoadingCircleAnimation()
     }
 }
 
@@ -151,15 +141,10 @@ fun ShowError() {
 @Composable
 fun ShowBody(jokes: List<Joke>, actions: NavigationActions) {
     Box(Modifier.fillMaxSize()) {
-        Column() {
-            if (jokes.isEmpty()) {
-                Text(text = "No available jokes")
-            } else {
-                jokes.forEach { joke ->
-                    Row(Modifier.clickable(onClick = { actions.punchLineScreen(joke.punchLine) })) {
-                        Text(text = joke.setup)
-                    }
-                }
+        val scrollState = rememberLazyListState()
+        LazyColumn(state = scrollState) {
+            items(jokes) { joke ->
+                JokeListItem(actions = actions, jokeSetup = joke.setup, jokePunchLine = joke.punchLine)
             }
         }
     }
