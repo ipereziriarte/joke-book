@@ -16,14 +16,13 @@ import com.ipereziriarte.jokebook.ui.home.MainDestinations.CHILD_TITLE_KEY
 import com.ipereziriarte.jokebook.ui.home.MainDestinations.COVERSCREEN
 import com.ipereziriarte.jokebook.ui.home.MainDestinations.LISTSCREEN
 import com.ipereziriarte.jokebook.ui.jokelist.JokeList
-import com.ipereziriarte.jokebook.ui.navigation.Screen
 import com.ipereziriarte.jokebook.ui.punchline.Punchline
 import com.ipereziriarte.jokebook.ui.theme.JokeBookTheme
 
 @Composable
 internal fun Home() {
     val navController = rememberNavController()
-    val actions = remember(navController) {NavigationActions(navController)}
+    val actions = remember(navController) { NavigationActions(navController) }
 
     NavHost(navController = navController, startDestination = COVERSCREEN) {
         composable(COVERSCREEN) {
@@ -34,7 +33,7 @@ internal fun Home() {
         }
         composable(
             "$CHILDSCREEN/{$CHILD_TITLE_KEY}",
-            arguments = listOf(navArgument(CHILD_TITLE_KEY) {type = NavType.StringType})
+            arguments = listOf(navArgument(CHILD_TITLE_KEY) { type = NavType.StringType })
         ) { backStackEntry ->
             val arguments = requireNotNull(backStackEntry.arguments)
             Punchline(actions = actions, punchline = arguments.getString(CHILD_TITLE_KEY, ""))
@@ -44,7 +43,7 @@ internal fun Home() {
 
 class NavigationActions(navController: NavHostController) {
 
-    val coverScreen: () -> Unit = { navController.navigate(COVERSCREEN)}
+    val coverScreen: () -> Unit = { navController.navigate(COVERSCREEN) }
 
     val jokeListScreen: () -> Unit = {
         navController.navigate(LISTSCREEN)

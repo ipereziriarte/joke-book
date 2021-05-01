@@ -41,5 +41,14 @@ dependencies {
   kapt libs.hilt.compiler
   kapt libs.androidx.hilt.compiler
 
+  implementation libs.moshi.base
+  kapt libs.moshi.codegen
+
+  implementation libs.okhttp.client
+  implementation libs.okhttp.logging.interceptor
+
+  implementation libs.retrofit.base
+  implementation libs.retrofit.converter
+
   testImplementation libs.junit
 }

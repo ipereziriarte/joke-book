@@ -17,6 +17,8 @@ import androidx.compose.material.Tab
 import androidx.compose.material.TabRow
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -24,6 +26,8 @@ import androidx.hilt.navigation.compose.hiltNavGraphViewModel
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
+import com.ipereziriarte.data.Joke
+import com.ipereziriarte.data.datasources.remote.jokes.CallResult
 import com.ipereziriarte.jokebook.ui.home.NavigationActions
 import kotlinx.coroutines.launch
 
@@ -88,14 +92,43 @@ fun GeneralBody(actions: NavigationActions) {
     GeneralBody(generalViewModel = hiltNavGraphViewModel(), actions = actions)
 }
 
+@Suppress("UNCHECKED_CAST")
 @Composable
 fun GeneralBody(generalViewModel: JokeListGeneralViewModel, actions: NavigationActions) {
+
+    val result: CallResult by generalViewModel.fetchJokes.observeAsState(CallResult.Success(emptyList()))
+    when (result) {
+        is CallResult.Loading -> ShowLoading()
+        is CallResult.Success -> GeneralBody(jokes = (result as CallResult.Success).data, actions = actions)
+        is CallResult.Failure -> ShowError()
+    }
+}
+
+@Composable
+fun ShowLoading() {
+    Box(Modifier.fillMaxSize()) {
+        Text("Loading")
+    }
+}
+
+@Composable
+fun ShowError() {
+    Box(Modifier.fillMaxSize()) {
+        Text("Error loading data")
+    }
+}
+
+@Composable
+fun GeneralBody(jokes: List<Joke>, actions: NavigationActions) {
     Box(Modifier.fillMaxSize()) {
         Column() {
-            val jokes = generalViewModel.generalJokes
-            jokes.forEach { joke ->
-                Row(Modifier.clickable(onClick = {actions.punchLineScreen(joke.punchLine)} )) {
-                    Text(text = joke.setup)
+            if (jokes.isEmpty()) {
+                Text(text = "No available jokes")
+            } else {
+                jokes.forEach { joke ->
+                    Row(Modifier.clickable(onClick = { actions.punchLineScreen(joke.punchLine) })) {
+                        Text(text = joke.setup)
+                    }
                 }
             }
         }
