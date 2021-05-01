@@ -1,5 +1,6 @@
 package com.ipereziriarte.jokebook.ui.jokelist
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -23,11 +24,12 @@ import androidx.hilt.navigation.compose.hiltNavGraphViewModel
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
+import com.ipereziriarte.jokebook.ui.home.NavigationActions
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-internal fun JokeList(navigateToPunchLine: () -> Unit) {
+internal fun JokeList(actions: NavigationActions) {
     val allTabs = JokeTab.values().toList()
     val pagerState = rememberPagerState(pageCount = allTabs.size)
     val coroutineScope = rememberCoroutineScope()
@@ -58,7 +60,7 @@ internal fun JokeList(navigateToPunchLine: () -> Unit) {
                     .fillMaxWidth()
             ) { page ->
                 when (page) {
-                    JokeTab.General.ordinal -> GeneralBody()
+                    JokeTab.General.ordinal -> GeneralBody(actions)
                     JokeTab.Knock.ordinal -> KnockBody()
                     JokeTab.Programming.ordinal -> ProgrammingBody()
                 }
@@ -66,7 +68,7 @@ internal fun JokeList(navigateToPunchLine: () -> Unit) {
 
             Spacer(modifier = Modifier.size(32.dp))
             Button(
-                onClick = { navigateToPunchLine() }, modifier = Modifier.padding(8.dp),
+                onClick = { actions.punchLineScreen("See the punchline") }, modifier = Modifier.padding(8.dp),
                 shape = RoundedCornerShape(20.dp)
             ) {
                 Text(text = "See the punchline")
@@ -82,17 +84,17 @@ enum class JokeTab {
 }
 
 @Composable
-fun GeneralBody() {
-    GeneralBody(generalViewModel = hiltNavGraphViewModel())
+fun GeneralBody(actions: NavigationActions) {
+    GeneralBody(generalViewModel = hiltNavGraphViewModel(), actions = actions)
 }
 
 @Composable
-fun GeneralBody(generalViewModel: JokeListGeneralViewModel) {
+fun GeneralBody(generalViewModel: JokeListGeneralViewModel, actions: NavigationActions) {
     Box(Modifier.fillMaxSize()) {
         Column() {
             val jokes = generalViewModel.generalJokes
             jokes.forEach { joke ->
-                Row() {
+                Row(Modifier.clickable(onClick = {actions.punchLineScreen(joke.punchLine)} )) {
                     Text(text = joke.setup)
                 }
             }

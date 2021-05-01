@@ -1,7 +1,7 @@
 package com.ipereziriarte.jokebook.ui.navigation
 
 enum class Screen(val route: String) {
-    Home("home"),
+    Cover("cover"),
     JokeList("jokelist"),
     PunchLine("punchline")
 }

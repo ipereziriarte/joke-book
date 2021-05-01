@@ -12,15 +12,16 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.ipereziriarte.jokebook.ui.home.NavigationActions
 
 @Composable
-internal fun Punchline(navigateBack: () -> Boolean) {
+internal fun Punchline(actions: NavigationActions, punchline: String = "") {
     Surface(color = MaterialTheme.colors.surface) {
         Column {
-            Text(text = "This is the punch line")
+            Text(text = punchline)
             Spacer(modifier = Modifier.size(32.dp))
             Button(
-                onClick = { navigateBack() }, modifier = Modifier.padding(8.dp),
+                onClick = { actions.navigateBack() }, modifier = Modifier.padding(8.dp),
                 shape = RoundedCornerShape(20.dp)
             ) {
                 Text(text = "Back")

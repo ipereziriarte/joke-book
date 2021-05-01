@@ -13,15 +13,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
+import com.ipereziriarte.jokebook.ui.home.NavigationActions
 
 @Composable
-internal fun Cover(navigateToJokeList: () -> Unit) {
+internal fun Cover(actions: NavigationActions) {
     Surface(color = MaterialTheme.colors.surface) {
         Column {
             Text(text = "Joke Book")
             Spacer(modifier = Modifier.size(32.dp))
             Button(
-                onClick = { navigateToJokeList() }, modifier = Modifier.padding(8.dp).testTag("CoverMainBtn"),
+                onClick = { actions.jokeListScreen() }, modifier = Modifier.padding(8.dp).testTag("CoverMainBtn"),
                 shape = RoundedCornerShape(20.dp)
             ) {
                 Text(text = "Have fun!")
