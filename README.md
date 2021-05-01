@@ -40,6 +40,10 @@ The experimental feature is enabled at `settings.gradle` file and the dependenci
 ### Navigation
 The navigation is provided by the [Android Jetpack navigation component](https://developer.android.com/guide/navigation).
 
+### ViewPager
+The Joke List screen is composed using a Tab layout and a view pager. The Tab element already exists in the compose ui
+components, however I used [Chris Banes Accompanist library](https://google.github.io/accompanist/pager/) to implement the view pager.
+
 ### Testing
 
 #### UI tests
