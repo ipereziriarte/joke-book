@@ -2,6 +2,7 @@ package com.ipereziriarte.jokebook.ui.jokelist
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -18,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltNavGraphViewModel
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
@@ -81,21 +83,57 @@ enum class JokeTab {
 
 @Composable
 fun GeneralBody() {
+    GeneralBody(generalViewModel = hiltNavGraphViewModel())
+}
+
+@Composable
+fun GeneralBody(generalViewModel: JokeListGeneralViewModel) {
     Box(Modifier.fillMaxSize()) {
-        Text(text = "Tab 1 content")
+        Column() {
+            val jokes = generalViewModel.generalJokes
+            jokes.forEach { joke ->
+                Row() {
+                    Text(text = joke.setup)
+                }
+            }
+        }
     }
 }
 
 @Composable
 fun KnockBody() {
+    KnockBody(knockViewModel = hiltNavGraphViewModel())
+}
+
+@Composable
+fun KnockBody(knockViewModel: JokeListKnockViewModel) {
     Box(Modifier.fillMaxSize()) {
-        Text(text = "Tab 2 content")
+        Column() {
+            val jokes = knockViewModel.knockJokes
+            jokes.forEach { joke ->
+                Row() {
+                    Text(text = joke.setup)
+                }
+            }
+        }
     }
 }
 
 @Composable
 fun ProgrammingBody() {
+    ProgrammingBody(programmingViewModel = hiltNavGraphViewModel())
+}
+
+@Composable
+fun ProgrammingBody(programmingViewModel: JokeListProgrammingViewModel) {
     Box(Modifier.fillMaxSize()) {
-        Text(text = "Tab 3 content")
+        Column() {
+            val jokes = programmingViewModel.programmingJokes
+            jokes.forEach { joke ->
+                Row() {
+                    Text(text = joke.setup)
+                }
+            }
+        }
     }
 }

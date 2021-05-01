@@ -1,6 +1,14 @@
 plugins {
   id 'com.android.application'
   id 'kotlin-android'
+
+  id 'kotlin-kapt'
+  id'dagger.hilt.android.plugin'
+}
+
+kapt {
+  correctErrorTypes = true
+  useBuildCache = true
 }
 
 android {
@@ -60,8 +68,13 @@ dependencies {
   implementation libs.accompanist.pager
   implementation libs.androidx.activity.compose
   implementation libs.androidx.core
+
   implementation libs.androidx.lifecycle.runtime
+  implementation libs.androidx.lifecycle.viewmodel.ktx
+  implementation libs.androidx.lifecycle.viewmodel.compose
   implementation libs.androidx.navigation.compose
+  implementation libs.androidx.hilt.navigation.compose
+  kapt libs.androidx.hilt.compiler
 
   implementation 'androidx.appcompat:appcompat:1.2.0'
   implementation 'com.google.android.material:material:1.3.0'
@@ -70,6 +83,9 @@ dependencies {
   implementation libs.compose.runtime.runtime
   implementation libs.compose.ui.ui
   implementation libs.compose.ui.tooling
+
+  implementation libs.hilt.library
+  kapt libs.hilt.compiler
 
   implementation libs.kotlin.coroutines.android
   implementation libs.kotlin.coroutines.core
