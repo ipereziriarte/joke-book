@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">JokeBook</string>
+    <string name="cover_title">Jokes</string>
+    <string name="cover_button">Have fun!</string>
 </resources>
