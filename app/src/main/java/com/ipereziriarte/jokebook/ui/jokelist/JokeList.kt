@@ -18,6 +18,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.hilt.navigation.compose.hiltNavGraphViewModel
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
@@ -142,7 +143,7 @@ fun ShowError() {
 fun ShowBody(jokes: List<Joke>, actions: NavigationActions) {
     Box(Modifier.fillMaxSize()) {
         val scrollState = rememberLazyListState()
-        LazyColumn(state = scrollState) {
+        LazyColumn(state = scrollState, modifier = Modifier.testTag("JokesColumn")) {
             items(jokes) { joke ->
                 JokeListItem(actions = actions, jokeSetup = joke.setup, jokePunchLine = joke.punchLine)
             }

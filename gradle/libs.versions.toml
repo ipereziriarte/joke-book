@@ -51,6 +51,8 @@ kotlin-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-te
 kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
 
+mockk-android = "io.mockk:mockk-android:1.11.0"
+
 moshi-base = {module = "com.squareup.moshi:moshi", version.ref = "moshi"}
 moshi-codegen = { module = "com.squareup.moshi:moshi-kotlin-codegen", version.ref = "moshi"}
 
