@@ -23,11 +23,11 @@ import androidx.hilt.navigation.compose.hiltNavGraphViewModel
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
-import com.ipereziriarte.data.Joke
 import com.ipereziriarte.data.datasources.remote.jokes.CallResult
+import com.ipereziriarte.data.repository.Joke
 import com.ipereziriarte.jokebook.ui.components.JokeListItem
 import com.ipereziriarte.jokebook.ui.components.LoadingCircleAnimation
-import com.ipereziriarte.jokebook.ui.home.NavigationActions
+import com.ipereziriarte.jokebook.ui.navigation.NavigationActions
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalPagerApi::class)

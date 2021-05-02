@@ -11,7 +11,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.ipereziriarte.jokebook.ui.home.NavigationActions
+import com.ipereziriarte.jokebook.ui.navigation.NavigationActions
 
 @Composable
 internal fun JokeListItem(jokeSetup: String = "Lolz", jokePunchLine: String = "haha", actions: NavigationActions) {

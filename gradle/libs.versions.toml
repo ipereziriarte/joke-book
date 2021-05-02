@@ -16,6 +16,9 @@ accompanist-pager = {module = "com.google.accompanist:accompanist-pager", versio
 android-gradlePlugin = "com.android.tools.build:gradle:7.0.0-alpha15"
 
 androidx-activity-compose = "androidx.activity:activity-compose:1.3.0-alpha07"
+
+androidx-appcompat = "androidx.appcompat:appcompat:1.2.0"
+google-material = "com.google.android.material:material:1.3.0"
 androidx-core = "androidx.core:core-ktx:1.5.0-beta03"
 
 androidx-lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidxlifecycle" }

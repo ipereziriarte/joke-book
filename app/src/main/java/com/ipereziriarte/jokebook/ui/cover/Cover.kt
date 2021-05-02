@@ -23,7 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.ipereziriarte.jokebook.R
-import com.ipereziriarte.jokebook.ui.home.NavigationActions
+import com.ipereziriarte.jokebook.ui.navigation.NavigationActions
 
 @Composable
 internal fun Cover(actions: NavigationActions) {

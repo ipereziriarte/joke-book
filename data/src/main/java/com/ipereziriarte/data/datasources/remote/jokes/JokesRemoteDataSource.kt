@@ -1,6 +1,6 @@
 package com.ipereziriarte.data.datasources.remote.jokes
 
-import com.ipereziriarte.data.Joke
+import com.ipereziriarte.data.repository.Joke
 import javax.inject.Inject
 
 class JokesRemoteDataSource @Inject constructor(private val jokesApi: JokesApi) {
@@ -14,7 +14,7 @@ class JokesRemoteDataSource @Inject constructor(private val jokesApi: JokesApi) 
                     throw IllegalStateException("Empty result response")
                 } else {
                     result.body()!!.map {
-                        val joke = Joke(it.id.toLong(), it.type, it.setup, it.punchline)
+                        val joke = it.toJoke()
                         jokes.add(joke)
                     }
                     return CallResult.Success(jokes)

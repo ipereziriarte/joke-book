@@ -20,6 +20,7 @@ similar widget.
 ### Prerequisites
 This apps is built using jetpack compose. In order to run it you will need to download the latest version of
 [Android Studio Canary](https://developer.android.com/studio/preview)
+This project was coded using Android Studio Artic Fox 2020.3.1 Canary 15 and gradle plugin 7.0.0-Alpha15.
 
 It will also require to have the latest gradle version (>7.0 and auto installed with the gradle wrapper)
 
@@ -44,6 +45,43 @@ The navigation is provided by the [Android Jetpack navigation component](https:/
 The Joke List screen is composed using a Tab layout and a view pager. The Tab element already exists in the compose ui
 components, however I used [Chris Banes Accompanist library](https://google.github.io/accompanist/pager/) to implement the view pager.
 
+### Architecture
+Given that I've been working with big projects based on Clean Architecture and RxJava, I decided to do something different
+here in order to learn about Compose UI and Unidirectional State Flows.
+
+The app has 2 modules just to demo how to create a multi module architecture.
+
+The app is separated into 2 layers: Presentation and Data.
+
+#### App module
+The main module `App` contains the UI and view models.
+
+Depending on the size of the project or the Requirements I would split this module with different modules per feature.
+That way we could use dynamic features and work more efficiently in parallel and have smaller build times.
+
+I have created an small animation for the loading state.
+
+The data is collected by calling the repository from each view model (one per layout of the view pager) and it is modeled
+using a sealed class called `CallResult` This is useful to handle the view state that can be loading, error or success.
+
+Each change in the state forces a recomposition at ui level that paints different layouts for each of them.
+
+#### Data module
+The data module contains the repository and the remote datasource.
+The calls are done with retrofit and I add different interceptors to the okhttp client depending on the build type.
+Check `DebugNetworkModule`
+
+#### What would I do different?
+For a bigger project I would create a domain layer that contains the business logic, the core Joke model and and interface
+that defines the Repository.
+
+That way I could have some benefits:
+- Isolate the data layer
+- Reuse the Use Case to get the jokes so I can pass a param to it with the joke category.
+- Setup some kind of cache policy
+- Be able to choose between refreshing the jokes or load the stored ones.
+- Write unit tests for the domain layer
+
 ### Testing
 
 #### UI tests
@@ -54,4 +92,14 @@ Check the [compose ui testing docs](https://developer.android.com/jetpack/compos
 look to the `AndroidManifest.xml` file under `app/src/debug` that includes a little hack to let the compose element be
 initialized without calling the parent activity.
 
+#### Unit tests
+I created a sample unit test in the data module.
+With more time I would also write some tests for the API response and call with MockWebServer.
 
+## Libraries
+Dependencies are provided at `gradle/libs.versions.toml`
+And I use:
++ 100% Kotlin
++ Hilt for dependency injection
++ Retrofit, OkHttp, Moshi for the network stack
++ Mockk for testing

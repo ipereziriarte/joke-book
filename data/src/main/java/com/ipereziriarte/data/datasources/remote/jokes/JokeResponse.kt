@@ -1,5 +1,6 @@
 package com.ipereziriarte.data.datasources.remote.jokes
 
+import com.ipereziriarte.data.repository.Joke
 import com.squareup.moshi.JsonClass
 
 /**
@@ -11,4 +12,8 @@ import com.squareup.moshi.JsonClass
  * }
  */
 @JsonClass(generateAdapter = true)
-data class JokeResponse(val id: String, val type: String, val setup: String, val punchline: String)
+data class JokeResponse(val id: Long, val type: String, val setup: String, val punchline: String)
+
+fun JokeResponse.toJoke(): Joke {
+    return Joke(setup, punchline)
+}

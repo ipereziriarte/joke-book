@@ -15,7 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
-import com.ipereziriarte.jokebook.ui.home.NavigationActions
+import com.ipereziriarte.jokebook.ui.navigation.NavigationActions
 import com.ipereziriarte.jokebook.ui.theme.Teal200
 
 @Composable

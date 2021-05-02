@@ -4,7 +4,8 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.navigation.NavHostController
 import com.ipereziriarte.jokebook.ui.cover.Cover
-import com.ipereziriarte.jokebook.ui.home.NavigationActions
+import com.ipereziriarte.jokebook.ui.navigation.NavigationActions
+
 import com.ipereziriarte.jokebook.ui.theme.JokeBookTheme
 import io.mockk.mockkClass
 import org.junit.Rule

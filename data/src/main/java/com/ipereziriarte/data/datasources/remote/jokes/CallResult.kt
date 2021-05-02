@@ -1,6 +1,6 @@
 package com.ipereziriarte.data.datasources.remote.jokes
 
-import com.ipereziriarte.data.Joke
+import com.ipereziriarte.data.repository.Joke
 
 sealed class CallResult {
 

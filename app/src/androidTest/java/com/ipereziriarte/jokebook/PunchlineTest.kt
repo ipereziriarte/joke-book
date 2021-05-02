@@ -7,7 +7,7 @@ import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.printToLog
 import androidx.navigation.NavHostController
-import com.ipereziriarte.jokebook.ui.home.NavigationActions
+import com.ipereziriarte.jokebook.ui.navigation.NavigationActions
 import com.ipereziriarte.jokebook.ui.punchline.Punchline
 import com.ipereziriarte.jokebook.ui.theme.JokeBookTheme
 import io.mockk.every
